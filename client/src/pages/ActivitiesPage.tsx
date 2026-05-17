@@ -16,7 +16,7 @@ export default function ActivitiesPage() {
   const [filter, setFilter] = useState<FilterCategory>('all');
   const [search, setSearch] = useState('');
 
-  const sorted = [...activities].sort((a, b) => b.id - a.id);
+  const sorted = [...activities].sort((a, b) => b.date.localeCompare(a.date));
   const filtered = sorted.filter((a) => {
     const matchCat = filter === 'all' || a.category === filter;
     const matchSearch =

@@ -88,7 +88,7 @@ export default function GroupPage() {
                   {team.viceLeader && team.viceLeader !== 'TBD' && (
                     <div className="flex items-center gap-2 text-sm text-gray-300">
                       <Star size={14} className="text-gray-400" />
-                      <span className="text-gray-500">副負責人：</span>{team.viceLeader}
+                      <span className="text-gray-500">副團長：</span>{team.viceLeader}
                     </div>
                   )}
                 </div>

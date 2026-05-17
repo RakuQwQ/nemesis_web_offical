@@ -114,7 +114,7 @@ export const activities: Activity[] = [
   },
   {
     id: 34,
-    date: '2026-04-9',
+    date: '2026-04-09',
     title: 'NEMESIS 網址上線',
     description: 'NEMESIS 官方網站正式上線！',
     category: 'community',
@@ -364,7 +364,7 @@ export const teams: Team[] = [
     tier: 'Alpha',
     memberCount: 11,
     leader: 'Raku_VTuber',
-    viceLeader: 'Elise_qwq',
+    viceLeader: 'eliseqwq',
     description: '熾級是 NEMESIS 中最重要的團隊，負責進行公會管理及發展規劃事務。',
     longDescription: '熾級是 NEMESIS 中最重要的團隊，負責進行公會管理及發展規劃事務。成員都是經過嚴格篩選，擁有出色的視野和團隊協作能力。',
     color: 'from-red-600 to-orange-900',
