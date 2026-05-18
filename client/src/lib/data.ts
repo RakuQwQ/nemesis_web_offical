@@ -502,7 +502,7 @@ export const servers: Server[] = [
   },
   {
     id: 5,
-    name: '察洛斯 Chsemnos',
+    name: '察洛斯 XANOZ',
     description: '不定期活動。RPG 生存伺服器，適合建築、生存及 RPG 玩家。',
     type: 'RPG、生存',
     status: 'active',
@@ -555,9 +555,8 @@ export const servers: Server[] = [
     status: 'seasonal',
     ip: '23.109.122.175:25648',
     tags: ['生存', '活動', '紅石建築'],
-    version: '1.21.11',
+    version: '26.1.2',
     discordUrl: 'https://discord.gg/caQZcwDEad',
-    threadsUrl: 'https://www.threads.com/@challengepark.fe',
   },
   {
     id: 10,
