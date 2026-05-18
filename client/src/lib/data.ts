@@ -557,6 +557,7 @@ export const servers: Server[] = [
     tags: ['生存', '活動', '紅石建築'],
     version: '26.1.2',
     discordUrl: 'https://discord.gg/caQZcwDEad',
+    threadUrl: 'https://www.threads.com/@instantsmp.hkmc',
   },
   {
     id: 10,
