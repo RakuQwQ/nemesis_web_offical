@@ -506,7 +506,7 @@ export const servers: Server[] = [
     description: '不定期活動。RPG 生存伺服器，適合建築、生存及 RPG 玩家。',
     type: 'RPG、生存',
     status: 'active',
-    ip: 'rubiksmp.net',
+    ip: 'Chsemnos.akiba-rei.com',
     tags: ['RPG', '生存', '建築'],
     version: '1.21.4',
     discordUrl: 'https://discord.gg/D5p7peGDCq',
