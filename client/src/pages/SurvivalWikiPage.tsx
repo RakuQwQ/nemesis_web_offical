@@ -186,7 +186,6 @@ const worldSections: WorldDimension[] = [
       '無邊際地圖，自由建設及探索',
       '熾級大宅（Seraphim HQ）',
       '生存團 Ruler 基地',
-      '初見團活動場地',
       '玩家聯盟領地及自建建築',
       '出生點（Spawn）位於主世界',
     ],
@@ -214,9 +213,7 @@ const worldSections: WorldDimension[] = [
     gradient: 'from-purple-900/60 to-indigo-900/40',
     features: [
       '標準原版終界維度',
-      '終界龍定期重置，挑戰可獲特殊獎勵',
       '終界城及鞘翅探索',
-      '終界積分挑戰為定期活動之一',
     ],
   },
 ];
@@ -539,12 +536,13 @@ function NemiNewsSection() {
 
 // ── Server Events (from data.ts, nemi tag) ────────────────────────────────────
 function ServerEventsSection() {
+  const nemiNewsIds = useMemo(() => new Set(nemiNews.map((n) => n.id)), []);
   const events = useMemo(
     () =>
       activities
-        .filter((a) => a.tags?.includes('nemi'))
+        .filter((a) => a.tags?.includes('nemi') && !nemiNewsIds.has(a.id))
         .sort((a, b) => b.date.localeCompare(a.date)),
-    [],
+    [nemiNewsIds],
   );
 
   return (
