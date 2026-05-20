@@ -50,12 +50,6 @@ interface FaqItem {
   a: string;
 }
 
-interface WorldSection {
-  icon: string;
-  title: string;
-  description: string;
-}
-
 const SERVER_IP = 'mc.nemesis.wiki';
 const SERVER_VERSION = '1.20.10';
 
@@ -170,26 +164,60 @@ const faq: FaqItem[] = [
   },
 ];
 
-const worldSections: WorldSection[] = [
+interface WorldDimension {
+  icon: string;
+  title: string;
+  titleEn: string;
+  badge: string;
+  badgeColor: string;
+  gradient: string;
+  features: string[];
+}
+
+const worldSections: WorldDimension[] = [
   {
     icon: '🌍',
     title: '主世界',
-    description: '無邊際生存世界，玩家可自由建設及探索。主城及各大聯盟領地均位於此。',
+    titleEn: 'Overworld',
+    badge: '無邊際',
+    badgeColor: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
+    gradient: 'from-emerald-900/60 to-cyan-900/40',
+    features: [
+      '無邊際地圖，自由建設及探索',
+      '熾級大宅（Seraphim HQ）',
+      '生存團 Ruler 基地',
+      '初見團活動場地',
+      '玩家聯盟領地及自建建築',
+      '出生點（Spawn）位於主世界',
+    ],
   },
   {
     icon: '🔥',
     title: '地獄',
-    description: '標準地獄維度，提供豐富的地獄資源。部分特殊地點可能由 Ruler 設置特殊事件。',
+    titleEn: 'The Nether',
+    badge: '標準地獄',
+    badgeColor: 'text-orange-400 bg-orange-500/20 border-orange-500/30',
+    gradient: 'from-red-900/60 to-orange-900/40',
+    features: [
+      '標準原版地獄維度',
+      '豐富地獄資源（靈魂沙、螢石、地獄磚等）',
+      '地獄堡壘及遺跡探索',
+      '快速交通：地獄坐標比例 1:8',
+    ],
   },
   {
     icon: '🐉',
     title: '終界',
-    description: '終界龍定期重置，挑戰終界龍可獲得特殊獎勵。終界積分挑戰為伺服器定期活動之一。',
-  },
-  {
-    icon: '🏙️',
-    title: '主城（待填入）',
-    description: '伺服器主城為新玩家的出生點及交易中心。（座標及詳情待填入）',
+    titleEn: 'The End',
+    badge: '標準終界',
+    badgeColor: 'text-purple-400 bg-purple-500/20 border-purple-500/30',
+    gradient: 'from-purple-900/60 to-indigo-900/40',
+    features: [
+      '標準原版終界維度',
+      '終界龍定期重置，挑戰可獲特殊獎勵',
+      '終界城及鞘翅探索',
+      '終界積分挑戰為定期活動之一',
+    ],
   },
 ];
 
@@ -620,20 +648,45 @@ function WorldSection() {
     <section id="world" className="py-16 border-t border-white/5">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <SectionHeader icon={<Globe size={12} />} label="World Info" title="世界資訊" />
-        <div className="grid sm:grid-cols-2 gap-5">
-          {worldSections.map((item, i) => (
+        <div className="grid sm:grid-cols-3 gap-6">
+          {worldSections.map((dim, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="glass-card rounded-xl p-5 flex gap-4 items-start hover:border-cyan-500/20 transition-all"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="glass-card rounded-2xl overflow-hidden group hover:border-cyan-500/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
             >
-              <div className="text-3xl shrink-0">{item.icon}</div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{item.description}</p>
+              {/* Dimension banner */}
+              <div className={`relative h-28 bg-gradient-to-br ${dim.gradient} flex items-center justify-center`}>
+                <span className="text-5xl drop-shadow-lg">{dim.icon}</span>
+                {/* Badge */}
+                <div className="absolute top-3 right-3">
+                  <span className={`px-2 py-0.5 text-xs font-medium rounded-full border ${dim.badgeColor}`}>
+                    {dim.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5">
+                <h3
+                  className="text-lg font-bold text-white mb-0.5"
+                  style={{ fontFamily: 'Cinzel, serif' }}
+                >
+                  {dim.title}
+                </h3>
+                <p className="text-xs text-gray-500 mb-4">{dim.titleEn}</p>
+
+                <ul className="space-y-2">
+                  {dim.features.map((feat, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-gray-300">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                      {feat}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}
