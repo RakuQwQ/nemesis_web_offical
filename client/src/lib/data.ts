@@ -2,12 +2,16 @@
 // NEMESIS Guild — Shared Data
 // ============================================================
 
+import { nemiNews } from './nemi-news/index';
+
 export interface Activity {
   id: number;
   date: string;
   title: string;
   description: string;
+  content?: string; // long-form text for detail page; falls back to description if absent
   category: 'server' | 'event' | 'community' | 'vtuber' | 'uhc' | 'donation';
+  tags?: string[];
 }
 
 export interface Ban {
@@ -78,26 +82,13 @@ export interface Creator {
 }
 
 // ============================================================
-// ACTIVITIES DATA (33 events)
+// ACTIVITIES DATA
 // To add/edit events, update this array.
-// Each entry needs: id, date (YYYY-MM-DD), title, description, category, participants (optional)
+// For NEMI server news, edit src/lib/nemi-news.ts instead.
 // Categories: 'server' | 'event' | 'community' | 'vtuber' | 'uhc' | 'donation'
 // ============================================================
 export const activities: Activity[] = [
-  {
-    id: 38,
-    date: '2026-04-12',
-    title: 'NEMI 終界積分挑戰',
-    description: 'NEMI 生存活動',
-    category: 'server',
-  },
-  {
-    id: 37,
-    date: '2026-05-16',
-    title: 'NEMI 第一屆聯盟會議',
-    description: 'NEMI 第一屆聯盟會議',
-    category: 'server',
-  },
+  ...nemiNews,
   {
     id: 36,
     date: '2026-01-16',
@@ -153,13 +144,6 @@ export const activities: Activity[] = [
     title: 'Donation 開啓',
     description: 'NEMESIS 開放捐款渠道。',
     category: 'donation',
-  },
-  {
-    id: 28,
-    date: '2026-01-07',
-    title: '生存伺服器開啓',
-    description: 'NEMESIS 官方生存伺服器開啓，共 30 人參與。',
-    category: 'server',
   },
   {
     id: 27,
@@ -557,7 +541,7 @@ export const servers: Server[] = [
     tags: ['生存', '活動', '紅石建築'],
     version: '26.1.2',
     discordUrl: 'https://discord.gg/caQZcwDEad',
-    threadUrl: 'https://www.threads.com/@instantsmp.hkmc',
+    threadsUrl: 'https://www.threads.com/@instantsmp.hkmc',
   },
   {
     id: 10,

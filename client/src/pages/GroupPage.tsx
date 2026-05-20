@@ -6,6 +6,7 @@ import { ArrowLeft, Users, Shield, CheckCircle, Crown, Star } from 'lucide-react
 import { teams } from '@/lib/data';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useSeo } from '@/hooks/useSeo';
 
 const tierColors: Record<string, { badge: string; glow: string; border: string }> = {
   Alpha: {
@@ -28,6 +29,17 @@ const tierColors: Record<string, { badge: string; glow: string; border: string }
 export default function GroupPage() {
   const params = useParams<{ id: string }>();
   const team = teams.find((t) => t.slug === params.id);
+
+  useSeo(
+    team
+      ? {
+          title: `${team.name}（${team.nameEn}）`,
+          description: team.longDescription,
+          canonical: `/group/${team.slug}`,
+          ogImage: team.image ? `https://www.nemesis.wiki${team.image}` : undefined,
+        }
+      : { noIndex: true },
+  );
 
   if (!team) {
     return (

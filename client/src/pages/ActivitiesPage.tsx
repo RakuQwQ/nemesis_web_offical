@@ -1,18 +1,25 @@
 // NEMESIS Activities Page — Obsidian Chronicle Design
 // Full activity history (29 events)
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { ArrowLeft, Calendar, Filter } from 'lucide-react';
 import { activities, categoryLabels, categoryColors, type Activity } from '@/lib/data';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useSeo } from '@/hooks/useSeo';
 
 const allCategories = ['all', ...Object.keys(categoryLabels)] as const;
 type FilterCategory = typeof allCategories[number];
 
 export default function ActivitiesPage() {
+  useSeo({
+    title: '活動記錄',
+    description: `NEMESIS 公會活動歷史 — 共 ${activities.length} 個活動，記錄自 2021 年至今，包括 UHC、社群活動、VTuber 企劃等。`,
+    canonical: '/activities',
+  });
+
   const [filter, setFilter] = useState<FilterCategory>('all');
   const [search, setSearch] = useState('');
 

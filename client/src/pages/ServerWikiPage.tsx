@@ -10,6 +10,7 @@ const PAGE_SIZE = 12;
 import { servers } from '@/lib/data';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useSeo } from '@/hooks/useSeo';
 
 const statusConfig = {
   active: { label: '運行中', color: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30', icon: Wifi },
@@ -92,6 +93,12 @@ function IpBadge({ ip }: { ip?: string }) {
 }
 
 export default function ServerWikiPage() {
+  useSeo({
+    title: '伺服器百科',
+    description: `香港 Minecraft 伺服器目錄，共收錄 ${servers.length} 個伺服器，包括生存、UHC、SMP 等類型。`,
+    canonical: '/server-wiki',
+  });
+
   const [search, setSearch] = useState('');
   const [tagFilter, setTagFilter] = useState<TagFilter>('all');
   const [page, setPage] = useState(1);

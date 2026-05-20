@@ -4,8 +4,15 @@ import { Link } from 'wouter';
 import { ArrowLeft, Construction } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useSeo } from '@/hooks/useSeo';
 
 export default function CreatorWikiPage() {
+  useSeo({
+    title: '創作者百科',
+    description: 'NEMESIS 創作者百科 — 即將推出。收錄公會旗下 VTuber 及 Minecraft 創作者資訊。',
+    canonical: '/creator-wiki',
+  });
+
   return (
     <div className="min-h-screen bg-[oklch(0.12_0.01_260)]">
       <Navbar />

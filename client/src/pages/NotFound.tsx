@@ -1,7 +1,13 @@
 import { Link } from 'wouter';
 import { Home, ArrowLeft } from 'lucide-react';
+import { useSeo } from '@/hooks/useSeo';
 
 export default function NotFound() {
+  useSeo({
+    title: '404 — 頁面不存在',
+    noIndex: true,
+  });
+
   return (
     <div className="min-h-screen bg-[oklch(0.12_0.01_260)] flex items-center justify-center px-6">
       <div className="text-center max-w-md">

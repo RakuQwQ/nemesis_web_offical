@@ -5,6 +5,7 @@ import { Link } from 'wouter';
 import { ArrowLeft, Users, Sparkles } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useSeo } from '@/hooks/useSeo';
 
 const benefits = [
   { icon: '✨', title: '培養技能', items: ['獲得相互學習和練習的機會', '在友善和支持的環境中學習和成長', '有機會和他人工作，發展合作能力'] },
@@ -13,6 +14,12 @@ const benefits = [
 ];
 
 export default function MoreTeamsPage() {
+  useSeo({
+    title: '更多團隊',
+    description: 'NEMESIS 公會團隊架構介紹 — 了解熾級、生存團、初見團等各大團隊，歡迎組成新團。',
+    canonical: '/more-teams',
+  });
+
   return (
     <div className="min-h-screen bg-[oklch(0.12_0.01_260)]">
       <Navbar />
