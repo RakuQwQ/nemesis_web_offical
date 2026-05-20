@@ -61,42 +61,45 @@ const SERVER_VERSION = '1.20.10';
 
 const rules: RuleCategory[] = [
   {
-    icon: '🤝',
-    category: '基本行為守則',
+    icon: '🚫',
+    category: '1. 請勿使用外掛',
     items: [
-      '尊重所有玩家，禁止任何形式的騷擾或歧視。',
-      '禁止使用外掛、作弊程式或任何不公平手段。',
-      '請以友善態度溝通，避免不必要的衝突。',
-      '（待填入更多規則）',
+      '請勿使用 Cheat Client',
+      '請勿使用 X-ray、Killaura 等破壞遊戲平衡及體驗的模組',
+      '請勿利用伺服器的漏洞',
     ],
   },
   {
-    icon: '🏗️',
-    category: '建築與領地規則',
+    icon: '🤝',
+    category: '2. 請尊重其他玩家',
     items: [
-      '請勿在他人領地範圍內建築或採集資源。',
-      '建築之間請保持合理距離，避免影響他人發展。',
-      '廢棄建築請自行清理，保持伺服器整潔。',
-      '（待填入更多規則）',
+      '保持禮貌：避免使用侮辱性、攻擊性言語，即使開玩笑也要注意分寸',
+      '理性處理爭執：與其他玩家有異議時，請保持冷靜並適當時尋求管理員協助',
+      '尊重私隱：不得人肉搜索，不得公開他人個人資訊（IP、住址、真實身份等，即使對方個人資訊為公開）',
+      '尊重字眼：禁止使用歧視性字眼（包括但不限於種族、性別、宗教、政治立場等）',
+      '洗版禁止：請勿反覆傳送過長、重複性高的內容，遮蔽其他玩家的視線',
     ],
   },
   {
     icon: '⚔️',
-    category: 'PVP 規則',
+    category: '3. 玩家行為相關',
     items: [
-      'PVP 僅限於指定 PVP 區域或雙方同意的情況下進行。',
-      '禁止在安全區域內進行任何形式的 PVP。',
-      '禁止反覆針對同一玩家進行攻擊（扣殺）。',
-      '（待填入更多規則）',
+      '不論直接或間接方式，禁止擊殺其他玩家',
+      '嚴禁擅自進入他人建築範圍',
+      '禁止偷竊',
+      '未經許可，請勿擅自使用他人的農場、自動化設施或資源點',
+      '未經許可，禁止破壞其他玩家建築',
+      '禁止濫用紅石機械造成伺服器卡頓或崩潰（發現漏洞請立即向管理員回報，不得私自利用或散佈）',
+      '使用公共資源設施時請遵守使用規則並補充消耗品',
     ],
   },
   {
-    icon: '📢',
-    category: '聊天頻道規則',
+    icon: '❤️',
+    category: '4. 開心遊玩',
     items: [
-      '禁止在聊天頻道發送廣告或垃圾訊息。',
-      '請在適當頻道發言，遵守各頻道用途。',
-      '（待填入更多規則）',
+      '感謝你支持 NEMI！',
+      '好玩的遊戲體驗需要大家保持友善 >w<//',
+      '有任何問題隨時在 Discord #【🧭】指南針 開 Ticket 尋求協助',
     ],
   },
 ];
@@ -242,7 +245,7 @@ function RulesSection() {
   return (
     <section id="rules" className="py-16 border-t border-white/5">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
-        <SectionHeader icon={<Shield size={12} />} label="Rules" title="伺服器規則" />
+        <SectionHeader icon={<Shield size={12} />} label="Rules" title="伺服器守則" />
         <div className="space-y-3">
           {rules.map((rule, i) => (
             <motion.div
@@ -289,10 +292,52 @@ function RulesSection() {
             </motion.div>
           ))}
         </div>
-        <p className="mt-5 text-xs text-gray-500 flex items-center gap-1.5">
-          <Info size={12} />
-          規則持續更新中，請留意 Discord 公告。
-        </p>
+
+        {/* Notification reminder */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="mt-6 flex items-start gap-3 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-5 py-4"
+        >
+          <Megaphone size={15} className="text-cyan-400 shrink-0 mt-0.5" />
+          <p className="text-sm text-cyan-200/80 leading-relaxed">
+            <span className="font-semibold text-cyan-300">獲取伺服器通知：</span>
+            伺服器不時有更新及宣佈，請留意 Discord 的{' '}
+            <span className="font-mono text-cyan-300">#【📯】生存伺服器宣佈</span> 以獲取最新通知！
+          </p>
+        </motion.div>
+
+        {/* Consequences */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="mt-3 flex items-start gap-3 rounded-xl border border-red-500/20 bg-red-500/5 px-5 py-4"
+        >
+          <AlertTriangle size={15} className="text-red-400 shrink-0 mt-0.5" />
+          <div className="text-sm leading-relaxed">
+            <p className="font-semibold text-red-300 mb-1">違反規條後果！</p>
+            <p className="text-red-200/70">
+              違反規條者將會面臨嚴重的處罰。仇恨言論、威脅、人肉搜索將導致{' '}
+              <span className="font-semibold text-red-300">永久封禁且不設上訴</span>。
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Footnotes */}
+        <div className="mt-4 space-y-1">
+          <p className="text-xs text-gray-500 flex items-center gap-1.5">
+            <Info size={12} />
+            伺服器守則會隨時間及需要更改，請留意 Discord 公告。
+          </p>
+          <p className="text-xs text-gray-500 flex items-center gap-1.5">
+            <Info size={12} />
+            規則未寫的不代表伺服器容許；一切規則解釋權由團長擁有。
+          </p>
+        </div>
       </div>
     </section>
   );
