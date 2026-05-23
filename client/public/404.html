@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NEMESIS</title>
+    <!--
+      GitHub Pages SPA redirect.
+      When a user navigates directly to a route (e.g. /activities), GitHub Pages
+      serves this 404.html. We store the intended path in sessionStorage and
+      redirect to the root, where index.html picks it back up and replaces the
+      history entry so the router sees the correct path.
+
+      Adapted from https://github.com/rafgraph/spa-github-pages
+    -->
+    <script>
+      var path = window.location.pathname;
+      // Strip the repo base path if present (set during build via SITE_BASE_PATH)
+      var base = '/'; // replaced at build time if SITE_BASE_PATH is set
+      var redirectPath = path;
+      sessionStorage.setItem('spa-redirect', redirectPath);
+      window.location.replace(base + '?p=1');
+    </script>
+  </head>
+  <body></body>
+</html>
