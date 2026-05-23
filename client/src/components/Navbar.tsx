@@ -7,6 +7,7 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { teams } from '@/lib/data';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 const navSections = [
   { label: '關於公會', href: '/#about' },
@@ -162,7 +163,7 @@ export default function Navbar() {
           {/* Discord CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="https://discord.gg/VdvBegG6ax"
+              href={DISCORD_INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium rounded-lg transition-colors"
@@ -241,7 +242,7 @@ export default function Navbar() {
               </Link>
               <div className="pt-3">
                 <a
-                  href="https://discord.gg/VdvBegG6ax"
+                  href={DISCORD_INVITE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium rounded-lg transition-colors"

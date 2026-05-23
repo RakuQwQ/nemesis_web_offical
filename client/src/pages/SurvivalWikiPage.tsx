@@ -30,6 +30,7 @@ import { activities, categoryColors, categoryLabels } from '@/lib/data';
 import { nemiNews } from '@/lib/nemi-news/index';
 import { announcements, type Announcement } from '@/lib/nemi-announcements';
 import { useSeo } from '@/hooks/useSeo';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -787,7 +788,7 @@ export default function SurvivalWikiPage() {
               { label: '類型', value: '生存、微政治', mono: false, href: undefined },
               { label: '管理團隊', value: '生存團 (NEMESIS)', mono: false, href: undefined },
               { label: '開服日期', value: '2026 年 1 月 7 日', mono: false, href: undefined },
-              { label: '申請方式', value: 'Discord 申請', mono: false, href: 'https://discord.gg/VdvBegG6ax' },
+              { label: '申請方式', value: 'Discord 申請', mono: false, href: DISCORD_INVITE_URL },
             ].map((stat) => (
               <div key={stat.label} className="glass-card rounded-xl p-4">
                 <p className="text-xs text-gray-500 mb-1">{stat.label}</p>
@@ -835,7 +836,7 @@ export default function SurvivalWikiPage() {
             加入我們的 Discord，提交入伺申請，一起建設屬於你的王國。
           </p>
           <a
-            href="https://discord.gg/VdvBegG6ax"
+            href={DISCORD_INVITE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-medium rounded-xl transition-all duration-200 hover:scale-105"

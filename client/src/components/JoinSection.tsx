@@ -4,13 +4,19 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Server, MessageCircle, Mail, Shield } from 'lucide-react';
+import {
+  DISCORD_INVITE_URL,
+  DISCORD_INVITE_DISPLAY,
+  CONTACT_EMAIL,
+  MC_SERVER_IP,
+} from '@/lib/links';
 
 const joinCards = [
   {
     icon: Server,
     title: '遊戲伺服器',
     subtitle: 'Minecraft Server',
-    value: 'mc.nemesis.wiki',
+    value: MC_SERVER_IP,
     description: '加入我們的 Minecraft 生存伺服器，與公會成員一起冒險建設。',
     action: '複製 IP',
     color: 'from-emerald-500/20 to-emerald-900/20',
@@ -22,27 +28,27 @@ const joinCards = [
     icon: MessageCircle,
     title: 'Discord 伺服器',
     subtitle: 'Community Hub',
-    value: 'discord.gg/VdvBegG6ax',
+    value: DISCORD_INVITE_DISPLAY,
     description: '加入我們的 Discord 伺服器，與 500+ 名成員交流、參與活動。',
     action: '加入 Discord',
     color: 'from-[#5865F2]/20 to-[#5865F2]/5',
     borderColor: 'hover:border-[#5865F2]/40',
     iconColor: 'text-[#5865F2]',
     iconBg: 'bg-[#5865F2]/20',
-    href: 'https://discord.gg/VdvBegG6ax',
+    href: DISCORD_INVITE_URL,
   },
   {
     icon: Mail,
     title: '聯絡我們',
     subtitle: 'Contact',
-    value: 'contact@nemesis.wiki',
+    value: CONTACT_EMAIL,
     description: '有任何問題或合作意向，歡迎透過電郵聯絡公會管理層。',
     action: '發送郵件',
     color: 'from-purple-500/20 to-purple-900/20',
     borderColor: 'hover:border-purple-500/40',
     iconColor: 'text-purple-400',
     iconBg: 'bg-purple-500/20',
-    href: 'mailto:contact@nemesis.wiki',
+    href: `mailto:${CONTACT_EMAIL}`,
   },
 ];
 

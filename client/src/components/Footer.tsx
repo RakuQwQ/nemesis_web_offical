@@ -2,6 +2,7 @@
 
 import { Link } from 'wouter';
 import { teams } from '@/lib/data';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 export default function Footer() {
   return (
@@ -88,7 +89,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://discord.gg/VdvBegG6ax"
+                  href={DISCORD_INVITE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-gray-500 hover:text-gray-300 transition-colors"

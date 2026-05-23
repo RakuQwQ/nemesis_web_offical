@@ -10,6 +10,7 @@ import ActivitiesSection from '@/components/ActivitiesSection';
 import JoinSection from '@/components/JoinSection';
 import Footer from '@/components/Footer';
 import { useSeo } from '@/hooks/useSeo';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 export default function Home() {
   useSeo({
@@ -29,7 +30,7 @@ export default function Home() {
       url: 'https://www.nemesis.wiki',
       logo: 'https://www.nemesis.wiki/img/nemesis_logo_red.png',
       foundingDate: '2021-11-28',
-      sameAs: ['https://discord.gg/VdvBegG6ax'],
+      sameAs: [DISCORD_INVITE_URL],
     };
 
     const elId = 'jsonld-organization';

@@ -6,6 +6,7 @@ import { ArrowLeft, Users, Sparkles } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useSeo } from '@/hooks/useSeo';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 const benefits = [
   { icon: '✨', title: '培養技能', items: ['獲得相互學習和練習的機會', '在友善和支持的環境中學習和成長', '有機會和他人工作，發展合作能力'] },
@@ -63,7 +64,7 @@ export default function MoreTeamsPage() {
               如果你對某個 Minecraft 項目有熱情，歡迎聯絡我們，一起組成新的團隊。
             </p>
             <a
-              href="https://discord.gg/VdvBegG6ax"
+              href={DISCORD_INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-medium transition-colors"

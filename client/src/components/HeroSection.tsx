@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { DISCORD_INVITE_URL } from '@/lib/links';
 
 const HERO_BG = '/img/front_bg.png';
 
@@ -113,7 +114,7 @@ export default function HeroSection() {
             className="flex flex-wrap gap-4"
           >
             <a
-              href="https://discord.gg/VdvBegG6ax"
+              href={DISCORD_INVITE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 px-6 py-3.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#5865F2]/30 hover:-translate-y-0.5"
