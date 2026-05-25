@@ -618,6 +618,30 @@ export const servers: Server[] = [
     tags: ['原味生存', '金錢系統'],
     version: '1.21.11',
   },
+  {
+    id: 15,
+    name: 'Travellers Realms 旅人王國',
+    description: '手機、電腦，甚至遊戲機都能進入即玩的多人遊戲伺服器。',
+    type: '生存、基岩接受',
+    status: 'active',
+    tags: ['原味', '社羣'],
+    ip:'punk-trealms.lazycloud.de',
+    discordUrl: 'https://discord.gg/NJvgD8sV6j',
+    wikiUrl: 'https://silver-hawthorn-37b.notion.site/29c6f4afafcd80beafa3f4ecc4233678?v=29c6f4afafcd8088b140000c91a413a3',
+    version: '1.21.8',
+  },
+  {
+    id: 16,
+    name: 'SlimeSoFun',
+    description: '一個基於香港嘅Slimefun伺服器',
+    type: '生存、工業',
+    status: 'active',
+    tags: ['黏液科技', '生存'],
+    ip:'homer.qzz.io',
+    discordUrl: 'https://discord.com/invite/2NgV3AAJwH',
+    version: '1.9.x-1.21.11',
+  },
+  
   
 ];
 
