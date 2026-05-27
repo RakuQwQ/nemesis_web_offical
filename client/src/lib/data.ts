@@ -640,6 +640,7 @@ export const servers: Server[] = [
     ip:'homer.qzz.io',
     discordUrl: 'https://discord.com/invite/2NgV3AAJwH',
     version: '1.9.x-1.21.11',
+    wikiUrl: 'https://slimesofun.neocities.org/',
   },
   
   
