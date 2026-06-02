@@ -52,7 +52,7 @@ interface FaqItem {
 }
 
 const SERVER_IP = 'mc.nemesis.wiki';
-const SERVER_VERSION = '1.20.10';
+const SERVER_VERSION = '26.1.2';
 
 const rules: RuleCategory[] = [
   {
@@ -711,7 +711,7 @@ const TOC = [
 export default function SurvivalWikiPage() {
   useSeo({
     title: 'NEMI 生存伺服器',
-    description: 'NEMESIS 官方 Minecraft 生存伺服器 NEMI — 公會系統、微政治、定期活動。伺服器 IP：mc.nemesis.wiki，版本 Java 1.20.10，白名單制。',
+    description: 'NEMESIS 官方 Minecraft 生存伺服器 NEMI — 公會系統、微政治、定期活動。伺服器 IP：mc.nemesis.wiki，版本 Java 26.1.2，白名單制。',
     canonical: '/survival-wiki',
     keywords: 'NEMI 生存伺服器, mc.nemesis.wiki, 香港 Minecraft 生存伺服器, Minecraft SMP 香港, 公會系統 Minecraft, 白名單伺服器',
   });
