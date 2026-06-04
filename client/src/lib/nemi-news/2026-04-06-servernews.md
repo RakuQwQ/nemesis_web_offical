@@ -1,6 +1,6 @@
 ---
-id: 28
-date: 2026-01-07
+id: 29
+date: 2026-06-04
 description: 04/06/2026NEMI NEWS
 ---
 
