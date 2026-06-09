@@ -158,13 +158,6 @@ export default function Navbar() {
             >
               活動記錄
             </Link>
-
-            <Link
-              href="/showcase"
-              className="px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-md hover:bg-white/5"
-            >
-              作品展示
-            </Link>
           </div>
 
           {/* Discord CTA */}
@@ -246,12 +239,6 @@ export default function Navbar() {
                 className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
               >
                 活動記錄
-              </Link>
-              <Link
-                href="/showcase"
-                className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-              >
-                作品展示
               </Link>
               <div className="pt-3">
                 <a
