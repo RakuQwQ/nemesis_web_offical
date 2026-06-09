@@ -79,6 +79,21 @@ export interface Creator {
   tags: string[];
 }
 
+export type ShowcaseCategory = 'minecraft' | 'digital-art' | 'pixel-art' | 'other';
+
+export interface ShowcaseItem {
+  id: number;
+  title: string;
+  author: string;
+  category: ShowcaseCategory;
+  imageUrl: string;
+  description?: string;
+  date?: string;
+  tags?: string[];
+  /** Aspect ratio hint: 'landscape' | 'portrait' | 'square'. Controls card height in the grid. */
+  aspect?: 'landscape' | 'portrait' | 'square';
+}
+
 // ============================================================
 // ACTIVITIES DATA
 // To add/edit events, update this array.
@@ -691,4 +706,92 @@ export const categoryColors: Record<Activity['category'], string> = {
   vtuber: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
   uhc: 'bg-red-500/20 text-red-400 border-red-500/30',
   donation: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+};
+
+// ============================================================
+// SHOWCASE DATA
+// To add a new work, append an item to this array.
+// Replace imageUrl with the actual hosted image URL.
+// ============================================================
+export const showcaseItems: ShowcaseItem[] = [
+  {
+    id: 1,
+    title: '熾級大宅主殿',
+    author: 'Raku_VTuber',
+    category: 'minecraft',
+    imageUrl: '/img/serphan_bg.png',
+    description: '熾級大宅的主殿建築，融合中式宮廷風格與深色石材。',
+    date: '2025-08-01',
+    tags: ['建築', '宮廷', '生存'],
+    aspect: 'landscape',
+  },
+  {
+    id: 2,
+    title: 'NEMESIS 旗幟',
+    author: 'YYK_Video',
+    category: 'digital-art',
+    imageUrl: '/img/nemesis_logo_red.png',
+    description: 'NEMESIS 公會官方旗幟數碼插畫。',
+    date: '2025-06-15',
+    tags: ['插畫', '公會', '設計'],
+    aspect: 'square',
+  },
+  {
+    id: 3,
+    title: '生存伺服器全景',
+    author: 'eliseqwq',
+    category: 'minecraft',
+    imageUrl: '/img/raku_stand.png',
+    description: 'NEMI 生存伺服器的主城區全景截圖。',
+    date: '2026-02-10',
+    tags: ['生存', '城市', '截圖'],
+    aspect: 'portrait',
+  },
+  {
+    id: 4,
+    title: '初見團海報',
+    author: 'Wing_HK',
+    category: 'digital-art',
+    imageUrl: '/img/first_see_server.png',
+    description: '初見！異域旅行團系列宣傳海報。',
+    date: '2025-09-17',
+    tags: ['海報', 'VTuber', '宣傳'],
+    aspect: 'landscape',
+  },
+  {
+    id: 5,
+    title: '香港像素地圖',
+    author: 'Kraz',
+    category: 'pixel-art',
+    imageUrl: '/img/hk_sticker.png',
+    description: '以像素藝術重現香港城市面貌。',
+    date: '2025-12-01',
+    tags: ['像素', '香港', '地圖'],
+    aspect: 'square',
+  },
+  {
+    id: 6,
+    title: '深海廢墟建築',
+    author: 'Raku_VTuber',
+    category: 'minecraft',
+    imageUrl: '/img/front_bg.png',
+    description: '以深海為主題的廢墟建築，使用深色普麗斯瑪石及海晶燈。',
+    date: '2026-01-20',
+    tags: ['建築', '深海', '廢墟'],
+    aspect: 'landscape',
+  },
+];
+
+export const showcaseCategoryLabels: Record<ShowcaseCategory, string> = {
+  minecraft: 'Minecraft 建築',
+  'digital-art': '數碼插畫',
+  'pixel-art': '像素藝術',
+  other: '其他',
+};
+
+export const showcaseCategoryColors: Record<ShowcaseCategory, string> = {
+  minecraft: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+  'digital-art': 'bg-pink-500/20 text-pink-400 border-pink-500/30',
+  'pixel-art': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+  other: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
 };
