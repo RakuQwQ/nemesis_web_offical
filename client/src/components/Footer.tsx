@@ -8,9 +8,9 @@ export default function Footer() {
   return (
     <footer className="bg-[oklch(0.10_0.01_260)] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-7 h-7 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-sm rotate-45" />
               <span
@@ -50,10 +50,27 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Teams */}
+          {/* Teams & Commission */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wider">團隊</h4>
+            <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wider">委託與團隊</h4>
             <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/commission-info"
+                  className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                >
+                  委託須知
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/showcase"
+                  className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                >
+                  作品展示
+                </Link>
+              </li>
+              <div className="border-t border-white/10 my-2 w-1/2"></div>
               {teams.map((team) => (
                 <li key={team.id}>
                   <Link
@@ -64,14 +81,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/activities"
-                  className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-                >
-                  活動記錄
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -85,6 +94,14 @@ export default function Footer() {
                   className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
                 >
                   伺服器百科
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/activities"
+                  className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                >
+                  活動記錄
                 </Link>
               </li>
               <li>

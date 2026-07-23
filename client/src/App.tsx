@@ -17,6 +17,7 @@ import SurvivalWikiPage from "./pages/SurvivalWikiPage";
 import SurvivalNewsDetailPage from "./pages/SurvivalNewsDetailPage";
 import SurvivalNewsGalleryPage from "./pages/SurvivalNewsGalleryPage";
 import ShowcasePage from "./pages/ShowcasePage";
+import CommissionInfoPage from '@/pages/CommissionInfoPage';
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/survival-wiki/news/:id" component={SurvivalNewsDetailPage} />
       <Route path="/showcase" component={ShowcasePage} />
       <Route path="/404" component={NotFound} />
+      <Route path="/commission-info" component={CommissionInfoPage} />
       <Route component={NotFound} />
     </Switch>
   );

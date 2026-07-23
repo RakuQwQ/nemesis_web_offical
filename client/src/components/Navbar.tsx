@@ -21,11 +21,17 @@ const wikiLinks = [
   { label: 'NEMI 生存伺服器', href: '/survival-wiki' },
 ];
 
+const commissionLinks = [
+  { label: '委託須知', href: '/commission-info' },
+  { label: '作品展示', href: '/showcase' },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [teamsOpen, setTeamsOpen] = useState(false);
   const [wikiOpen, setWikiOpen] = useState(false);
+  const [commissionOpen, setCommissionOpen] = useState(false);
   const [location, navigate] = useLocation();
 
   useEffect(() => {
@@ -38,6 +44,7 @@ export default function Navbar() {
     setMobileOpen(false);
     setTeamsOpen(false);
     setWikiOpen(false);
+    setCommissionOpen(false);
   }, [location]);
 
   // On mount (or after navigation), check if there's a pending anchor to scroll to
@@ -152,6 +159,24 @@ export default function Navbar() {
               </div>
             </div>
 
+            {/* 委託 Commission dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                委託 <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+              <div className="absolute top-full left-0 mt-1 w-44 bg-[oklch(0.16_0.012_260/0.98)] backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                {commissionLinks.map((w) => (
+                  <Link
+                    key={w.href}
+                    href={w.href}
+                    className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 first:rounded-t-lg last:rounded-b-lg transition-colors"
+                  >
+                    {w.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             <Link
               href="/activities"
               className="px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-md hover:bg-white/5"
@@ -225,6 +250,18 @@ export default function Navbar() {
               <div className="pt-2 border-t border-white/10">
                 <p className="px-3 py-1 text-xs text-gray-500 uppercase tracking-wider">百科</p>
                 {wikiLinks.map((w) => (
+                  <Link
+                    key={w.href}
+                    href={w.href}
+                    className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                  >
+                    {w.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="pt-2 border-t border-white/10">
+                <p className="px-3 py-1 text-xs text-gray-500 uppercase tracking-wider">委託</p>
+                {commissionLinks.map((w) => (
                   <Link
                     key={w.href}
                     href={w.href}

@@ -1,31 +1,23 @@
+
 // NEMESIS 作品展示 — Showcase Gallery
 // Masonry-style grid of Minecraft builds, digital art, pixel art, etc.
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'wouter';
-import { ArrowLeft, Search, X, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Search, X, FileText, ChevronLeft, ChevronRight, Images } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useSeo } from '@/hooks/useSeo';
-import {
-  showcaseItems,
-  showcaseCategoryLabels,
-  showcaseCategoryColors,
-  type ShowcaseCategory,
-  type ShowcaseItem,
-} from '@/lib/data';
 
-const allFilters = ['all', 'minecraft', 'digital-art', 'pixel-art', 'other'] as const;
+// We import showcaseItems from your data file.
+import { showcaseItems, showcaseCategoryLabels, showcaseCategoryColors, type ShowcaseCategory, type ShowcaseItem } from '@/lib/data';
+
+// ── Define Your Custom Categories ──
+const allFilters = ['all', 'drawing', 'map', 'plugin_event', 'other'] as const;
 type Filter = typeof allFilters[number];
 
 /** Aspect → CSS column-span / row-span hint for the masonry grid */
-const aspectClass: Record<NonNullable<ShowcaseItem['aspect']>, string> = {
-  landscape: 'row-span-1',
-  portrait: 'row-span-2',
-  square: 'row-span-1',
-};
-
 const aspectImageClass: Record<NonNullable<ShowcaseItem['aspect']>, string> = {
   landscape: 'aspect-video',
   portrait: 'aspect-[3/4]',
@@ -35,28 +27,53 @@ const aspectImageClass: Record<NonNullable<ShowcaseItem['aspect']>, string> = {
 export default function ShowcasePage() {
   useSeo({
     title: '作品展示',
-    description: 'NEMESIS 公會成員作品展示 — Minecraft 建築、數碼插畫、像素藝術等創意作品。',
+    description: 'NEMESIS 公會成員作品展示 — Minecraft 建築、繪圖、地圖及活動相片。',
     canonical: '/showcase',
-    keywords: 'NEMESIS 作品, Minecraft 建築, 數碼插畫, 像素藝術, 香港 Minecraft 創作',
+    keywords: 'NEMESIS 作品, Minecraft 繪圖, 地圖, 活動相片, 委託',
   });
 
   const [filter, setFilter] = useState<Filter>('all');
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<ShowcaseItem | null>(null);
+  
+  // State for tracking the current image inside the modal slideshow
+  const [modalImageIdx, setModalImageIdx] = useState(0);
 
   const filtered = useMemo(() => {
     return showcaseItems.filter((item) => {
       const matchCat = filter === 'all' || item.category === filter;
+      
       const q = search.toLowerCase();
       const matchSearch =
         q === '' ||
         item.title.toLowerCase().includes(q) ||
         item.author.toLowerCase().includes(q) ||
+        (item.coAuthor ?? '').toLowerCase().includes(q) ||
         (item.description ?? '').toLowerCase().includes(q) ||
         (item.tags ?? []).some((t) => t.toLowerCase().includes(q));
+      
       return matchCat && matchSearch;
     });
   }, [filter, search]);
+
+  const openModal = (item: ShowcaseItem) => {
+    setSelected(item);
+    setModalImageIdx(0); // Reset index to the first image when opening
+  };
+
+  const nextModalImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selected) {
+      setModalImageIdx((prev) => (prev + 1) % selected.imageUrls.length);
+    }
+  };
+
+  const prevModalImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selected) {
+      setModalImageIdx((prev) => (prev - 1 + selected.imageUrls.length) % selected.imageUrls.length);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[oklch(0.12_0.01_260)]">
@@ -73,12 +90,24 @@ export default function ShowcasePage() {
             返回首頁
           </Link>
 
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
-            <span className="text-purple-400 text-sm font-medium tracking-widest uppercase">
-              Creative Works
-            </span>
+          <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
+              <span className="text-purple-400 text-sm font-medium tracking-widest uppercase">
+                Creative Works
+              </span>
+            </div>
+
+            {/* 委託須知 Button */}
+            <Link 
+              href="/commission-info"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-lg transition-colors text-sm font-medium"
+            >
+              <FileText size={16} />
+              委託須知
+            </Link>
           </div>
+
           <h1
             className="text-4xl sm:text-5xl font-bold text-white mb-2"
             style={{ fontFamily: 'Cinzel, serif' }}
@@ -86,7 +115,7 @@ export default function ShowcasePage() {
             作品展示
           </h1>
           <p className="text-gray-400">
-            公會成員的 Minecraft 建築、數碼插畫及像素藝術作品。
+            公會成員的繪圖、地圖及 Plugin 活動相片展示。
           </p>
         </div>
       </section>
@@ -119,9 +148,7 @@ export default function ShowcasePage() {
                       : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-gray-300'
                   }`}
                 >
-                  {f === 'all'
-                    ? '全部'
-                    : showcaseCategoryLabels[f as ShowcaseCategory]}
+                  {f === 'all' ? '全部' : showcaseCategoryLabels[f as ShowcaseCategory]}
                 </button>
               ))}
             </div>
@@ -144,80 +171,92 @@ export default function ShowcasePage() {
               className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
             >
               <AnimatePresence mode="popLayout">
-                {filtered.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.92 }}
-                    transition={{ duration: 0.3 }}
-                    className="break-inside-avoid mb-4 cursor-pointer group"
-                    onClick={() => setSelected(item)}
-                  >
-                    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10">
-                      {/* Image */}
-                      <div
-                        className={`w-full overflow-hidden ${
-                          aspectImageClass[item.aspect ?? 'landscape']
-                        }`}
-                      >
-                        <img
-                          src={item.imageUrl}
-                          alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      </div>
+                {filtered.map((item) => {
+                  const label = showcaseCategoryLabels[item.category] || '其他';
+                  const colorCls = showcaseCategoryColors[item.category] || 'text-gray-400 bg-white/5 border-white/10';
+                  const isMultiImage = item.imageUrls.length > 1;
 
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.01_260/0.90)] via-[oklch(0.08_0.01_260/0.40)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                        <span
-                          className={`self-start px-2 py-0.5 text-xs rounded-full border mb-2 ${
-                            showcaseCategoryColors[item.category]
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.92 }}
+                      transition={{ duration: 0.3 }}
+                      className="break-inside-avoid mb-4 cursor-pointer group"
+                      onClick={() => openModal(item)}
+                    >
+                      <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10">
+                        {/* Image */}
+                        <div
+                          className={`w-full overflow-hidden ${
+                            aspectImageClass[item.aspect ?? 'landscape']
                           }`}
                         >
-                          {showcaseCategoryLabels[item.category]}
-                        </span>
-                        <h3 className="text-white font-semibold text-sm leading-snug mb-1">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-400 text-xs">by {item.author}</p>
-                      </div>
+                          <img
+                            src={item.imageUrls[0]} // Always show the first image in the grid
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
 
-                      {/* Always-visible bottom strip */}
-                      <div className="px-3 py-2.5 border-t border-white/5">
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="min-w-0">
-                            <p className="text-xs font-medium text-white truncate">{item.title}</p>
-                            <p className="text-xs text-gray-500 truncate">by {item.author}</p>
+                        {/* Multi-image indicator badge */}
+                        {isMultiImage && (
+                          <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs flex items-center gap-1.5 border border-white/10 z-10">
+                            <Images size={12} />
+                            {item.imageUrls.length}
                           </div>
+                        )}
+
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.01_260/0.90)] via-[oklch(0.08_0.01_260/0.40)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                           <span
-                            className={`shrink-0 px-2 py-0.5 text-xs rounded-full border ${
-                              showcaseCategoryColors[item.category]
-                            }`}
+                            className={`self-start px-2 py-0.5 text-xs rounded-full border mb-2 ${colorCls}`}
                           >
-                            {showcaseCategoryLabels[item.category]}
+                            {label}
                           </span>
+                          <h3 className="text-white font-semibold text-sm leading-snug mb-1">
+                            {item.title}
+                          </h3>
+                          {/* List Mode: Only show author */}
+                          <p className="text-gray-400 text-xs">by {item.author}</p>
+                        </div>
+
+                        {/* Always-visible bottom strip */}
+                        <div className="px-3 py-2.5 border-t border-white/5">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="min-w-0">
+                              <p className="text-xs font-medium text-white truncate">{item.title}</p>
+                              {/* List Mode: Only show author */}
+                              <p className="text-xs text-gray-500 truncate">by {item.author}</p>
+                            </div>
+                            <span
+                              className={`shrink-0 px-2 py-0.5 text-[10px] rounded-full border ${colorCls}`}
+                            >
+                              {label.split(' ')[0]}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </motion.div>
           )}
         </div>
       </section>
 
-      {/* ── Lightbox ─────────────────────────────────────── */}
+      {/* ── Lightbox Slideshow Modal ─────────────────────────────────────── */}
       <AnimatePresence>
         {selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           >
             <motion.div
@@ -225,37 +264,93 @@ export default function ShowcasePage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.92, opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="relative max-w-3xl w-full bg-[oklch(0.14_0.012_260)] rounded-2xl border border-white/10 overflow-hidden shadow-2xl"
+              className="relative max-w-4xl w-full bg-[oklch(0.14_0.012_260)] rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close */}
               <button
                 onClick={() => setSelected(null)}
-                className="absolute top-4 right-4 z-10 p-1.5 rounded-full bg-black/50 text-gray-300 hover:text-white hover:bg-black/70 transition-colors"
+                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 text-gray-300 hover:text-white hover:bg-black/80 transition-colors border border-white/10 backdrop-blur-md"
               >
                 <X size={18} />
               </button>
 
-              {/* Image */}
-              <img
-                src={selected.imageUrl}
-                alt={selected.title}
-                className="w-full max-h-[60vh] object-cover"
-              />
+              {/* Image Slideshow Container */}
+              <div className="relative w-full bg-black flex items-center justify-center overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={modalImageIdx}
+                    src={selected.imageUrls[modalImageIdx]}
+                    alt={`${selected.title} - Image ${modalImageIdx + 1}`}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full max-h-[70vh] object-contain"
+                  />
+                </AnimatePresence>
 
-              {/* Info */}
-              <div className="p-6">
+                {/* Slideshow Controls (Only show if > 1 image) */}
+                {selected.imageUrls.length > 1 && (
+                  <>
+                    <button 
+                      onClick={prevModalImg}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 text-white hover:bg-black/70 transition-colors border border-white/10 backdrop-blur-md"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button 
+                      onClick={nextModalImg}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 text-white hover:bg-black/70 transition-colors border border-white/10 backdrop-blur-md"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+
+                    {/* Image Counter Badge */}
+                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium border border-white/10">
+                      {modalImageIdx + 1} / {selected.imageUrls.length}
+                    </div>
+
+                    {/* Navigation Dots */}
+                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+                      {selected.imageUrls.map((_, i) => (
+                        <button 
+                          key={i} 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setModalImageIdx(i);
+                          }}
+                          className={`h-1.5 rounded-full transition-all duration-300 shadow-sm ${
+                            i === modalImageIdx ? 'w-6 bg-purple-400' : 'w-1.5 bg-white/50 hover:bg-white/80'
+                          }`} 
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Info Bottom Bar */}
+              <div className="p-6 bg-[oklch(0.14_0.012_260)] border-t border-white/5">
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <h2 className="text-xl font-bold text-white mb-1">{selected.title}</h2>
-                    <p className="text-sm text-gray-400">by {selected.author}</p>
+                    {/* Modal Mode: Show Author AND Co-Author */}
+                    <p className="text-sm text-gray-400">
+                      by {selected.author}
+                      {selected.coAuthor && (
+                        <span className="ml-2 text-xs text-gray-500">
+                          (協作者: {selected.coAuthor})
+                        </span>
+                      )}
+                    </p>
                   </div>
                   <span
                     className={`shrink-0 px-3 py-1 text-xs rounded-full border ${
-                      showcaseCategoryColors[selected.category]
+                      showcaseCategoryColors[selected.category] || 'text-gray-400 bg-white/5 border-white/10'
                     }`}
                   >
-                    {showcaseCategoryLabels[selected.category]}
+                    {showcaseCategoryLabels[selected.category] || '其他'}
                   </span>
                 </div>
 
